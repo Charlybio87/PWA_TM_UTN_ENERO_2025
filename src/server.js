@@ -39,6 +39,7 @@ import authRouter from './routes/auth.route.js'
 import channelRouter from './routes/channel.route.js'
 import { sendMail } from './utils/mail.util.js'
 import workspaceRouter from './routes/workspace.route.js'
+import { authMiddleware } from './middlewares/auth.middleware.js'
 
 
 //Delegamos el flujo de consultas a /api/status al enrutador de status
@@ -49,6 +50,9 @@ app.use('/api/auth', authRouter)
 app.use('/api/workspace', workspaceRouter)
 
 app.use('/api/channel', channelRouter)
+
+/* Devolver la info del usuario */
+app.get('/api/profile', authMiddleware, async (request, response) => {})
 
 app.listen(PORT, () =>{
     console.log(`El servidor se esta ejecutando en http://localhost:${PORT}`)

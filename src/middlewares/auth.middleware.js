@@ -2,7 +2,14 @@ import ENVIROMENT from "../config/enviroment.js"
 import jwt from 'jsonwebtoken'
 export const authMiddleware = (request, response, next) => {
     try{
-    
+        const api_key = request.headers['x-api-key']
+        if(api_key !== ENVIROMENT.API_KEY){
+            response.json({
+                ok: false,
+                status: 401,
+                message: 'Unauthorized'
+            })
+        }
         const access_token = request.headers.authorization.split(' ')[1]
 
         //Cuando hacemos el verify ademas de verificar la firma del token tambien transformamos el token en objeto nuevamente
