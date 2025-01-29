@@ -19,7 +19,7 @@ app.use(
     })
 )
 
-app.use(express.json())
+app.use(express.json({limit: '5mb'}))
 app.use(verifyApiKeyMiddleware)
 
 //Status router
@@ -42,6 +42,7 @@ import channelRouter from './routes/channel.route.js'
 import { sendMail } from './utils/mail.util.js'
 import workspaceRouter from './routes/workspace.route.js'
 import { authMiddleware } from './middlewares/auth.middleware.js'
+import profileRouter from './routes/profile.route.js'
 
 
 //Delegamos el flujo de consultas a /api/status al enrutador de status
@@ -52,6 +53,8 @@ app.use('/api/auth', authRouter)
 app.use('/api/workspace', workspaceRouter)
 
 app.use('/api/channel', channelRouter)
+
+app.use('/api/profile', profileRouter)
 
 /* Devolver la info del usuario */
 app.get('/api/profile', authMiddleware, async (request, response) => {})
