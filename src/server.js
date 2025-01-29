@@ -4,6 +4,7 @@ import mongoose from './config/mongoDB.config.js'
 import connectToMongoDB from './config/mongoDB.config.js'
 import User from './models/User.model.js'
 import cors from 'cors'
+import verifyApiKeyMiddleware from './middlewares/verifyApiKeyMiddleware.js'
 
 
 const app = express()
@@ -19,6 +20,7 @@ app.use(
 )
 
 app.use(express.json())
+app.use(verifyApiKeyMiddleware)
 
 //Status router
 //Route: /api/status
